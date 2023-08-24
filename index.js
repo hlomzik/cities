@@ -35,7 +35,8 @@ const server = http.createServer((req, res) => {
 
       break;
     }
-    case '/labels': {
+    case '/labels':
+    case '/labels2': {
       // get country code from query string
       const query = new URLSearchParams(req.url.split('?')[1]);
       const path = query.getAll('path');
@@ -74,7 +75,7 @@ const server = http.createServer((req, res) => {
 
       res.setHeader('Content-Type', 'application/json');
       res.writeHead(200);
-      res.end(JSON.stringify(responseData));
+      res.end(JSON.stringify(url === '/labels2' ? { items: responseData } : responseData));
 
       break;
     }
