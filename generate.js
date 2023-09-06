@@ -36,6 +36,9 @@ cities.forEach(city => {
     index[code] = country;
   }
 
+  // check that there are no duplicates
+  if (index[code].children.find(child => child.value === city.name)) return;
+
   index[code].children.push({
     value: city.name,
   });
