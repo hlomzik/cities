@@ -43,7 +43,7 @@ const server = http.createServer((req, res) => {
       if (!path?.length) {
         // just list of all continents
         responseData = Object.entries(continents)
-          .map(([alias, value]) => ({ alias, value, isLeaf: false }));
+          .map(([alias, value]) => ({ alias, value, hint: alias, isLeaf: false }));
       } else if (path.length === 1) {
         // list of countries in continent, search by continent code or name
         responseData = Object.entries(countries)
