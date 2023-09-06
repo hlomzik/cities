@@ -8,8 +8,6 @@
  */
 
 const http = require('http');
-/** @link https://github.com/lutangar/cities.json/blob/master/cities.json */
-const cities = require('./cities.json');
 /** @link https://github.com/annexare/Countries/blob/main/packages/countries/src/data/countries.ts */
 const countries = require('./countries.json');
 const continents = require('./continents.json');
@@ -64,6 +62,8 @@ const server = http.createServer((req, res) => {
           return;
         }
 
+        /** @link https://github.com/lutangar/cities.json/blob/master/cities.json */
+        const cities = require('./cities.json');
         const citiesInCountry = cities
           .filter(city => city.country === country)
           // remove duplicates, because there are some in the list
