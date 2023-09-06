@@ -33,6 +33,15 @@ const server = http.createServer((req, res) => {
 
       break;
     }
+    case '/full': {
+      const full = require('./full.json');
+
+      res.setHeader('Content-Type', 'application/json');
+      res.writeHead(200);
+      res.end(JSON.stringify(full));
+
+      break;
+    }
     case '/labels':
     case '/labels2': {
       // get country code from query string
