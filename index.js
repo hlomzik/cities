@@ -33,6 +33,29 @@ const server = http.createServer((req, res) => {
 
       break;
     }
+    case '/private': {
+      const authheader = req.headers.authorization;
+
+      if (!authheader) {
+        res.setHeader('WWW-Authenticate', 'Basic');
+        res.writeHead(401);
+        res.end('You are not authenticated!');
+        return;
+      }
+
+      const auth = new Buffer.from(authheader.split(' ')[1], 'base64').toString().split(':');
+      const user = auth[0];
+      const pass = auth[1];
+
+      if (user !== 'admin' || pass !== 'taxonomy') {
+        res.setHeader('WWW-Authenticate', 'Basic');
+        res.writeHead(401);
+        res.end('Wrong credentials!');
+        return;
+      }
+
+      // no break, continue to /full
+    }
     case '/full': {
       const full = require('./full.json');
 
