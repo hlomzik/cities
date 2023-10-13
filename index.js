@@ -15,7 +15,7 @@ const continents = require('./continents.json');
 const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
 
   const url = req.url.split('?')[0]
 
@@ -35,6 +35,13 @@ const server = http.createServer((req, res) => {
     }
     case '/private': {
       const authheader = req.headers.authorization;
+
+      if (req.method === 'OPTIONS') {
+        res.setHeader('Allow', 'OPTIONS, GET');
+        res.writeHead(200);
+        res.end();
+        return;
+      }
 
       if (!authheader) {
         res.setHeader('WWW-Authenticate', 'Basic');
